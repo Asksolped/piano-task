@@ -1,4 +1,4 @@
-const nowPlayingElement = document.querySelector(".nowplaying");
+const nowPlaying = document.querySelector(".nowplaying");
 const keys = document.querySelectorAll(".key");
 
 function getKey(code) {
@@ -14,13 +14,12 @@ function playNote(code) {
   const audio = getAudio(code);
 
   if (!key || !audio) {
-    console.warn(`No key or audio found for code: ${code}`);
     return;
   }
 
   const keyNote = key.getAttribute("data-note");
   key.classList.add("playing");
-  nowPlayingElement.textContent = keyNote;
+  nowPlaying.textContent = keyNote;
   audio.currentTime = 0;
   audio.play();
 }
