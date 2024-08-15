@@ -43,8 +43,6 @@ h2 {
 .keys {
   display: flex;
   justify-content: center;
-  width: 100%;
-  height: 350px;
   max-width: 880px;
   margin: 40px auto 0;
   cursor: none;
@@ -52,6 +50,8 @@ h2 {
 
 .key {
   position: relative;
+  width: var(--width);
+  height: calc(var(--width) * 4);
   border: 4px solid black;
   border-radius: 0.5rem;
   transition: all 0.07s ease;
@@ -62,19 +62,17 @@ h2 {
 
 .key:not(.sharp) {
   float: left;
-  width: 10%;
-  height: 100%;
+  --width: 100px;
   background: rgba(255, 255, 255, 0.8);
 }
 
 .key.sharp {
-  width: 6%;
-  height: 60%;
+  --width: 60px;
   background: #000;
   color: #eee;
   z-index: 3;
-  margin-left: -35px;
-  margin-right: -35px;
+  margin-left: calc(var(--width) / -2);
+  margin-right: calc(var(--width) / -2);
 }
 
 .playing {
