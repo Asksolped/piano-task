@@ -41,11 +41,11 @@ h2 {
 }
 
 .keys {
-  display: block;
+  display: flex;
+  justify-content: center;
   width: 100%;
   height: 350px;
   max-width: 880px;
-  position: relative;
   margin: 40px auto 0;
   cursor: none;
 }
@@ -68,41 +68,13 @@ h2 {
 }
 
 .key.sharp {
-  position: absolute;
   width: 6%;
   height: 60%;
   background: #000;
   color: #eee;
-  top: 0;
   z-index: 3;
-}
-
-.key[data-key="87"] {
-  left: 7%;
-}
-
-.key[data-key="69"] {
-  left: 17%;
-}
-
-.key[data-key="84"] {
-  left: 37%;
-}
-
-.key[data-key="89"] {
-  left: 47%;
-}
-
-.key[data-key="85"] {
-  left: 57%;
-}
-
-.key[data-key="79"] {
-  left: 77%;
-}
-
-.key[data-key="80"] {
-  left: 87%;
+  margin-left: -35px;
+  margin-right: -35px;
 }
 
 .playing {
