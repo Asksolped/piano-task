@@ -1,6 +1,8 @@
 const nowPlaying = document.querySelector(".nowplaying");
 const keys = document.querySelectorAll(".key");
 
+let keyPressed = {};
+
 function getKey(code) {
   return document.querySelector(`.key[data-key="${code}"]`);
 }
@@ -24,22 +26,24 @@ function playNote(code) {
   audio.play();
 }
 
-const throttledKeyDown = throttle(keyDown, 200);
-
 function keyDown(e) {
-  playNote(e.keyCode, throttledKeyDown);
+  if (keyPressed[e.keyCode]) {
+    return;
+  }
+  keyPressed[e.keyCode] = true;
+  playNote(e.keyCode);
 }
 
-function throttle(func, delay) {
-  let lastCall = 0;
-  return function (...args) {
-    const now = new Date().getTime();
-    if (now - lastCall < delay) {
-      return;
-    }
-    lastCall = now;
-    return func(...args);
-  };
+function keyUp(e) {
+  keyPressed[e.keyCode] = false;
+  const key = getKey(e.keyCode);
+  const audio = getAudio(e.keyCode);
+
+  if (key && audio) {
+    key.classList.remove("playing");
+    audio.pause();
+    audio.currentTime = 0;
+  }
 }
 
 function transitionEnd(e) {
@@ -48,5 +52,6 @@ function transitionEnd(e) {
   }
 }
 
-window.addEventListener("keydown", throttledKeyDown);
+window.addEventListener("keydown", keyDown);
+window.addEventListener("keyup", keyUp);
 keys.forEach((key) => key.addEventListener("transitionend", transitionEnd));
