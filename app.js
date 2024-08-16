@@ -24,8 +24,22 @@ function playNote(code) {
   audio.play();
 }
 
+const throttledKeyDown = throttle(keyDown, 200);
+
 function keyDown(e) {
-  playNote(e.keyCode);
+  playNote(e.keyCode, throttledKeyDown);
+}
+
+function throttle(func, delay) {
+  let lastCall = 0;
+  return function (...args) {
+    const now = new Date().getTime();
+    if (now - lastCall < delay) {
+      return;
+    }
+    lastCall = now;
+    return func(...args);
+  };
 }
 
 function transitionEnd(e) {
@@ -34,5 +48,5 @@ function transitionEnd(e) {
   }
 }
 
-window.addEventListener("keydown", keyDown);
-keys.forEach(key => key.addEventListener("transitionend", transitionEnd));
+window.addEventListener("keydown", throttledKeyDown);
+keys.forEach((key) => key.addEventListener("transitionend", transitionEnd));
