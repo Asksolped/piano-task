@@ -22,6 +22,7 @@ function playNote(code) {
   const keyNote = key.getAttribute("data-note");
   key.classList.add("playing");
   nowPlaying.textContent = keyNote;
+
   audio.currentTime = 0;
   audio.play();
 }
@@ -37,12 +38,8 @@ function keyDown(e) {
 function keyUp(e) {
   keyPressed[e.keyCode] = false;
   const key = getKey(e.keyCode);
-  const audio = getAudio(e.keyCode);
-
-  if (key && audio) {
+  if (key) {
     key.classList.remove("playing");
-    audio.pause();
-    audio.currentTime = 0;
   }
 }
 
